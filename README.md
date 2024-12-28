@@ -23,10 +23,11 @@ Make sure you have Java and Spring Boot installed.
 
 Link the backend to a MySQL database. You need to create a database called bridgedatabase in your MySQL server.
 
-   ```bash
-   CREATE DATABASE bridgedatabase;
 
-Once the database is created, run the Spring Boot application.
+   ```bash
+   ng s -o
+
+This will st the database is created, run the Spring Boot application.
 
 Note: The backend is connected to the bridgedatabase MySQL database. The database itself is not pre-provided, so you will need to create and populate it yourself.
 
