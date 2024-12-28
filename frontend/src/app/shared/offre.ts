@@ -5,14 +5,14 @@ export class Offre {
     prix: number;
     remise?: number;
     categorie: string;
-    duration: string;
+    duration: number;
     image: string;
 
     constructor(
         nom: string,
         prix: number,
         categorie: string,
-        duration: string,
+        duration: number,
         image: string,
         id?: number,
         description?: string,

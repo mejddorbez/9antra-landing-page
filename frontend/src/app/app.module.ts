@@ -10,13 +10,15 @@ import { OffreService } from './services/offre.service';
 import { CommonModule } from '@angular/common';
 import { CrudComponent } from './crud/crud.component';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     IndexComponent,
-    CrudComponent
+    CrudComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,

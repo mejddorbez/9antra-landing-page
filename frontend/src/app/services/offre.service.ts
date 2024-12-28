@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core';
 import { Offre } from '../shared/offre';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -11,16 +10,13 @@ import { AuthService } from './auth.service';
 export class OffreService {
 
   headers = {
-    headers: new HttpHeaders({
-      // Authorization: `Bearer ${this.authService.token}`
-    })
+    headers: new HttpHeaders()
   };
 
   constructor(
     private httpClient: HttpClient,
     @Inject('BaseURL') private baseURL: string,
-    @Inject('API') private api: string,
-    private authService: AuthService
+    @Inject('API') private api: string
   ) {}
 
   getRandOffres(): Observable<Offre[]> {
@@ -53,14 +49,43 @@ export class OffreService {
   }
 
   postOffre(offre: Offre): Observable<Offre> {
-    return this.httpClient.post<Offre>(`${this.baseURL}/${this.api}/offres`, offre, this.headers);
+    const formData = new FormData();
+  
+    // Check if image is a base64 string
+    if (offre.image && typeof offre.image === 'string' && offre.image.startsWith('data:image')) {
+      // Convert base64 string to Blob
+      const byteString = atob(offre.image.split(',')[1]); // Remove the base64 header and decode
+      const arrayBuffer = new ArrayBuffer(byteString.length);
+      const uintArray = new Uint8Array(arrayBuffer);
+  
+      // Convert byte string to Uint8Array
+      for (let i = 0; i < byteString.length; i++) {
+        uintArray[i] = byteString.charCodeAt(i);
+      }
+  
+      // Create a Blob from the Uint8Array
+      const blob = new Blob([uintArray], { type: 'image/jpeg' }); // Adjust MIME type if necessary
+      formData.append('image', blob, 'image.jpg'); // Specify a filename
+    }
+  
+    // Append other fields of 'offre' to FormData
+    for (const key in offre) {
+      if (offre.hasOwnProperty(key) && key !== 'image') {
+        formData.append(key, offre[key]);
+      }
+    }
+  
+    // Send the POST request with the form data
+    return this.httpClient.post<Offre>(
+      `${this.baseURL}/${this.api}/offres/file`, 
+      formData
+    );
   }
+  
 
   postOffreFile(formData: FormData): Observable<string> {
     return this.httpClient.post<string>(`${this.baseURL}/${this.api}/offres/file`, formData, {
-      headers: new HttpHeaders({
-        // Authorization: `Bearer ${this.authService.token}`,
-      }),
+      headers: new HttpHeaders(),
     });
   }
 

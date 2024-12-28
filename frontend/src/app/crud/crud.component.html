@@ -39,6 +39,7 @@
                   </figure>
                   <figcaption>
                     <h3>{{ o.nom }}</h3>
+                    <br />
                     <span>{{ o.description }}</span>
                     <div class="item-price">
                       $ {{ o.prix }}
@@ -46,6 +47,9 @@
                         $ {{ o.prix - o.remise }}
                       </span>
                     </div>
+                    <span
+                      ><i><b>Duration : </b>{{ o.duration }} weeks</i></span
+                    >
                   </figcaption>
                 </div>
               </div>
@@ -57,6 +61,17 @@
     </div>
   </div>
 </section>
+<div class="row">
+  <a class="col-11">Hi</a>
+  <a
+    class="col"
+    class="btn btn-outline-accent btn-accent-arrow"
+    data-bs-toggle="modal"
+    data-bs-target="#EditModal"
+    (click)="editProduct({ nom: '', prix: 0, categorie: '', duration: 0, image: '' })"
+    >Add</a
+  >
+</div>
 <div
   class="modal fade"
   id="EditModal"
@@ -168,14 +183,38 @@
                   class="form-control"
                 />
               </div>
+              <!-- Duration Input -->
+              <div class="mb-3">
+                <label for="productDuration" class="form-label">Duration</label>
+                <input
+                  type="number"
+                  id="productPrice"
+                  [(ngModel)]="selectedProduct.duration"
+                  name="duration"
+                  class="form-control"
+                  required
+                />
+              </div>
             </div>
           </div>
-
           <!-- Save Button -->
           <div class="text-end mt-3">
-            <button type="submit" class="btn btn-primary" (click)="clickButton()">Save Changes</button>
-            <button type="button" class="btn text-white" style="background-color: #74642F !important;" (click)="deleteButton()">Delete Course</button>
-          
+            <button
+              type="submit"
+              class="btn btn-primary"
+              (click)="clickButton()"
+            >
+              Save Changes
+            </button>
+            <button
+              type="button"
+              class="btn text-white"
+              style="background-color: #74642f !important"
+              [hidden]="selectedProduct.id==undefined"
+              (click)="deleteButton()"
+            >
+              Delete Course
+            </button>
           </div>
         </form>
       </div>
