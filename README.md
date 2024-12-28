@@ -23,7 +23,7 @@ Make sure you have Java and Spring Boot installed.
 
 Link the backend to a MySQL database. You need to create a database called bridgedatabase in your MySQL server.
 
-CREATE DATABASE bridgedatabase;
+```CREATE DATABASE bridgedatabase;
 
 Once the database is created, run the Spring Boot application.
 
