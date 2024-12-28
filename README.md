@@ -14,20 +14,20 @@ This will start the Angular server and automatically open the application in you
 
 Note: The project was built using Angular version 16.1.0.
 
-Backend Setup (Spring Boot & MySQL)
+## Backend Setup (Spring Boot & MySQL)
+
 To run the backend of the application, follow these steps:
 
-Navigate to the backend folder in your terminal.
+1. Navigate to the backend folder in your terminal. (Make sure you have Java and Spring Boot installed.)
 
-Make sure you have Java and Spring Boot installed.
 
-Link the backend to a MySQL database. You need to create a database called bridgedatabase in your MySQL server.
-
+2. You need to create a database called bridgedatabase in your MySQL server.
 
    ```bash
-   ng s -o
+   CREATE DATABASE bridgedatabase;
 
-This will st the database is created, run the Spring Boot application.
+3. Once the database is created, link the backend to a MySQL database. 
+4. Run the Spring Boot application.
 
 Note: The backend is connected to the bridgedatabase MySQL database. The database itself is not pre-provided, so you will need to create and populate it yourself.
 
