@@ -1513,13 +1513,13 @@ body {
     padding-left: 20px;
   }
   
-  .btn-subscribe span {
+  .btn-contact span {
     transition: 0.5s ease-out;
     padding-right: 5px;
     opacity: 1;
   }
   
-  .btn-subscribe:hover span {
+  .btn-contact:hover span {
     padding-right: 10px;
     opacity: 0.5;
   }
@@ -1629,7 +1629,7 @@ body {
     font-weight: 500;
     line-height: 1;
     position: relative;
-    margin-bottom: 75px;
+    margin-block: 75px;
   }
   
   .section-title.divider {
@@ -2115,7 +2115,6 @@ body {
     background: #EDEBE4;
     padding: 140px 0 220px;
     margin-bottom: -141px;
-    z-index: -1;
   }
   
   #special-offer .section-title {
@@ -2133,22 +2132,22 @@ body {
   
   /*----- Subscribe Section
   --------------------------------------------------------------*/
-  #subscribe {
+  #contact {
     background: #fdcb86;
     padding: 120px 0;
   }
   
-  #subscribe .subscribe-content {
+  #contact .contact-content {
     margin-left: 15px;
   }
   
-  #subscribe .subscribe-content input[type="text"] {
+  #contact .contact-content input[type="text"] {
     background: none;
     border: none;
     width: 252px;
   }
   
-  #subscribe form#form {
+  #contact form#form {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #6F6F6F;
@@ -2166,53 +2165,53 @@ body {
   
   
   @media screen and (max-width: 1200px) {
-    #subscribe form#form {
+    #contact form#form {
       width: 90%;
     }
   
-    #subscribe .subscribe-content input[type="text"] {
+    #contact .contact-content input[type="text"] {
       width: 100%;
     }
   }
 
-  .btn-subscribe {
+  .btn-contact {
     width: 100%;
     background-color : #AF2F64 
   }
   
   @media screen and (max-width: 980px) {
   
-    /*#subscribe .grid {
+    /*#contact .grid {
         flex-wrap: wrap;
         justify-content: center;
     }*/
-    #subscribe .section-title {
+    #contact .section-title {
       width: 100%;
       color: white;
       margin: 0 auto 50px;
     }
   
-    #subscribe p {
+    #contact p {
       width: 100%;
       text-align: left;
       margin: 30px auto;
     }
   
-    #subscribe form#form,
-    #subscribe .subscribe-content {
+    #contact form#form,
+    #contact .contact-content {
       width: 100%;
       color: #DFDFDF;
     }
   
-    #subscribe form#form {
+    #contact form#form {
       margin: 0 auto;
     }
   
-    #subscribe .subscribe-content {
+    #contact .contact-content {
       margin-left: 0;
     }
   
-    #subscribe {
+    #contact {
       margin-bottom: 90px;
     }
   
@@ -2220,10 +2219,10 @@ body {
   
   /*
   @media screen and (max-width: 780px) {
-    #subscribe form#form {
+    #contact form#form {
         width: 90%;
     }
-    #subscribe .subscribe-content {
+    #contact .contact-content {
         width: 90%;
     }
   }*/
@@ -2397,7 +2396,7 @@ body {
     position: relative;
     background: #EFEEE8;
     border: 1px solid #EAE8DF;
-    padding: 15%;
+    padding: 5%;
     cursor: pointer;
     width: 100%;
   }
@@ -2432,7 +2431,7 @@ body {
   .product-item figcaption>h3 {
     font-size: 1.4em;
     font-weight: 500;
-    color: #74642F;
+    color : #AF2F64 ;
     margin: 0;
   }
   .product-item figcaption>p {
@@ -2440,7 +2439,7 @@ body {
   }
   
   .product-item .item-price {
-    color: #74642F;
+    color : #AF2F64 ;
     font-size: 1.3em;
   }
   

@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index/index.component';
+import { CrudComponent } from './crud/crud.component';
 
 const routes: Routes = [
   {
     path:'index',
     component:IndexComponent
+  },
+  {
+    path:'crud',
+    component:CrudComponent
   },
   {
     path:'index#:section',

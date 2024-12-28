@@ -1,0 +1,184 @@
+<section id="popular-courses">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-header align-center">
+          <h2 class="section-title">Admin CRUD Interface</h2>
+        </div>
+
+        <ul class="tabs">
+          <li
+            *ngFor="let c of categories"
+            [attr.data-tab-target]="'#' + formatCategory(c)"
+            [ngClass]="{ tab: true, active: c == 'All Genre' }"
+          >
+            {{ c }}
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div
+            *ngFor="let c of categories"
+            [id]="formatCategory(c)"
+            data-tab-content
+            [ngClass]="{ active: c == 'All Genre' }"
+          >
+            <div class="row">
+              <div *ngFor="let o of getOffresByCategorie(c)" class="col-md-3">
+                <div class="product-item" (click)="editProduct(o)">
+                  <figure class="product-style">
+                    <img [src]="o.image" alt="Books" class="product-item" />
+                    <button
+                      type="button"
+                      class="add-to-cart"
+                      data-bs-toggle="modal"
+                      data-bs-target="#EditModal"
+                    >
+                      Edit Section
+                    </button>
+                  </figure>
+                  <figcaption>
+                    <h3>{{ o.nom }}</h3>
+                    <span>{{ o.description }}</span>
+                    <div class="item-price">
+                      $ {{ o.prix }}
+                      <span *ngIf="o.remise != null" class="prev-price">
+                        $ {{ o.prix - o.remise }}
+                      </span>
+                    </div>
+                  </figcaption>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--inner-tabs-->
+    </div>
+  </div>
+</section>
+<div
+  class="modal fade"
+  id="EditModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+        <button
+          id="closeButton"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="updateProduct()">
+          <div class="row">
+            <!-- Image Column -->
+            <div
+              class="col-md-4 d-flex align-items-center justify-content-center"
+            >
+              <figure class="product-style">
+                <img
+                  [src]="selectedProduct.image"
+                  alt="Product Image"
+                  class="product-item"
+                  style="width: 300px; height: auto; object-fit: contain"
+                  (click)="fileInput.click()"
+                />
+
+                <!-- Hidden file input -->
+                <input
+                  type="file"
+                  #fileInput
+                  (change)="onFileSelected($event)"
+                  accept="image/*"
+                  style="display: none"
+                />
+              </figure>
+            </div>
+
+            <!-- Input Fields Column -->
+            <div class="col-md-8">
+              <!-- Name Input -->
+              <div class="mb-3">
+                <label for="productName" class="form-label">Name</label>
+                <input
+                  type="text"
+                  id="productName"
+                  [(ngModel)]="selectedProduct.nom"
+                  name="nom"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <!-- Description Input -->
+              <div class="mb-3">
+                <label for="productDescription" class="form-label"
+                  >Description</label
+                >
+                <textarea
+                  id="productDescription"
+                  [(ngModel)]="selectedProduct.description"
+                  name="description"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+              <!-- Category Input -->
+              <div class="mb-3">
+                <label for="productCategory" class="form-label">Category</label>
+                <input
+                  type="text"
+                  id="productCategory"
+                  [(ngModel)]="selectedProduct.categorie"
+                  name="categorie"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <!-- Price Input -->
+              <div class="mb-3">
+                <label for="productPrice" class="form-label">Price</label>
+                <input
+                  type="number"
+                  id="productPrice"
+                  [(ngModel)]="selectedProduct.prix"
+                  name="prix"
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <!-- Remise Input -->
+              <div class="mb-3">
+                <label for="productRemise" class="form-label">Discount</label>
+                <input
+                  type="number"
+                  id="productRemise"
+                  [(ngModel)]="selectedProduct.remise"
+                  name="remise"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Save Button -->
+          <div class="text-end mt-3">
+            <button type="submit" class="btn btn-primary" (click)="clickButton()">Save Changes</button>
+            <button type="button" class="btn text-white" style="background-color: #74642F !important;" (click)="deleteButton()">Delete Course</button>
+          
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

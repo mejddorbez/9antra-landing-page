@@ -23,6 +23,14 @@ public class OffreServiceImpl implements OffreService {
         return offreRepository.findAll();
     }
     @Override
+    public List<String> getAllCategories() {
+        return offreRepository.findAllCategories();
+    }
+    @Override
+    public List<Offre> getRandomOffres() {
+        return offreRepository.findRandomOffer();
+    }
+    @Override
     public List<Offre> getAllOffresByCategorie(String categorie) {
         return offreRepository.findOffresByCategorie(categorie);
     }
@@ -36,6 +44,10 @@ public class OffreServiceImpl implements OffreService {
     @Override
     public Offre getOffreById(Long Id) {
         return Id==null?null:offreRepository.findById(Id).orElseThrow(EntityNotFoundException::new);
+    }
+    @Override
+    public byte[] getImageOffreById(Long Id) {
+        return Id==null?null:offreRepository.findById(Id).orElseThrow(EntityNotFoundException::new).getImage();
     }
 
     @Override
@@ -54,6 +66,7 @@ public class OffreServiceImpl implements OffreService {
             existingOffre.setCategorie(updatedOffre.getCategorie());
             existingOffre.setRemise(updatedOffre.getRemise());
             existingOffre.setDuration(updatedOffre.getDuration());
+            existingOffre.setImage(updatedOffre.getImage());
             return offreRepository.save(existingOffre);
         }
         return null;
