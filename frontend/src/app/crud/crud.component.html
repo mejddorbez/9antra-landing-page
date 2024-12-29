@@ -42,9 +42,9 @@
                     <br />
                     <span>{{ o.description }}</span>
                     <div class="item-price">
-                      $ {{ o.prix }}
+                      $ {{ o.prix - (o.remise!=null?o.remise:0) }}
                       <span *ngIf="o.remise != null" class="prev-price">
-                        $ {{ o.prix - o.remise }}
+                        $ {{ o.prix }}
                       </span>
                     </div>
                     <span

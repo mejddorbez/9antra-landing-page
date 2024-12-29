@@ -53,11 +53,14 @@
                   <h3>{{ o.nom }}</h3>
                   <span>{{ o.description }}</span>
                   <div class="item-price">
-                    $ {{ o.prix }}
-                    <span *ngIf="o.remise != null" class="prev-price">
-                      $ {{ o.prix - o.remise }}
-                    </span>
-                  </div>
+                      $ {{ o.prix - (o.remise!=null?o.remise:0) }}
+                      <span *ngIf="o.remise != null" class="prev-price">
+                        $ {{ o.prix }}
+                      </span>
+                    </div>
+                    <span
+                      ><i><b>Duration : </b>{{ o.duration }} weeks</i></span
+                    >
                 </figcaption>
               </div>
             </div>
@@ -110,11 +113,14 @@
                     <h3>{{ o.nom }}</h3>
                     <span>{{ o.description }}</span>
                     <div class="item-price">
-                      $ {{ o.prix }}
+                      $ {{ o.prix - (o.remise!=null?o.remise:0) }}
                       <span *ngIf="o.remise != null" class="prev-price">
-                        $ {{ o.prix - o.remise }}
+                        $ {{ o.prix }}
                       </span>
                     </div>
+                    <span
+                      ><i><b>Duration : </b>{{ o.duration }} weeks</i></span
+                    >
                   </figcaption>
                 </div>
               </div>
@@ -171,11 +177,14 @@
                 <h3>{{ o.nom }}</h3>
                 <span>{{ o.description }}</span>
                 <div class="item-price">
-                  $ {{ o.prix }}
-                  <span *ngIf="o.remise != null" class="prev-price">
-                    $ {{ o.prix - o.remise }}
-                  </span>
-                </div>
+                      $ {{ o.prix - (o.remise!=null?o.remise:0) }}
+                      <span *ngIf="o.remise != null" class="prev-price">
+                        $ {{ o.prix }}
+                      </span>
+                    </div>
+                    <span
+                      ><i><b>Duration : </b>{{ o.duration }} weeks</i></span
+                    >
               </figcaption>
             </div>
           </div>
