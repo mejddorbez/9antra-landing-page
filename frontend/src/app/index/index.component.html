@@ -32,43 +32,51 @@
   </div>
   <div class="container">
     <div class="row">
-        <div class="product-list" data-aos="fade-up">
-          <div class="row">
-            <div *ngIf="getOffres().length === 0">
-              Pas d'annonces disponibles
-            </div>
-            <div *ngFor="let o of getRandOffres()" class="col-md-3">
-              <div class="product-item">
-                <figure class="product-style">
-                  <img [src]="o.image" alt="Books" class="product-item" />
-                  <button
-                    type="button"
-                    class="add-to-cart"
-                    data-product-tile="add-to-cart"
-                  >
-                    Show Details
-                  </button>
-                </figure>
-                <figcaption>
-                  <h3>{{ o.nom }}</h3>
-                  <span>{{ o.description }}</span>
+      <div class="product-list" data-aos="fade-up">
+        <div class="row">
+          <div *ngIf="getOffres().length === 0">Pas d'annonces disponibles</div>
+          <div *ngFor="let o of getRandOffres()" class="col-md-3">
+            <div class="product-item">
+              <figure class="product-style">
+                <img [src]="o.image" alt="Books" class="product-item" />
+                <button
+                  type="button"
+                  class="add-to-cart"
+                  data-product-tile="add-to-cart"
+                >
+                  Show Details
+                </button>
+              </figure>
+              <figcaption>
+                <h3>{{ o.nom }}</h3>
+                <span>{{ o.description }}</span>
+                <div *ngIf="o.prix != 0; else freeCourse" class="item-price">
+                  $ {{ o.prix - (o.remise != null ? o.remise : 0) }}
+                  <span *ngIf="o.remise != null" class="prev-price">
+                    $ {{ o.prix }}
+                  </span>
+                </div>
+                <ng-template #freeCourse>
                   <div class="item-price">
-                      $ {{ o.prix - (o.remise!=null?o.remise:0) }}
-                      <span *ngIf="o.remise != null" class="prev-price">
-                        $ {{ o.prix }}
-                      </span>
-                    </div>
-                    <span
-                      ><i><b>Duration : </b>{{ o.duration }} weeks</i></span
-                    >
-                </figcaption>
-              </div>
+                    <b><i>Free</i></b>
+                  </div>
+                </ng-template>
+                <span
+                  ><i
+                    ><b>Duration : </b>{{ o.duration }} week{{
+                      o.duration >= 2 ? "s" : ""
+                    }}</i
+                  ></span
+                >
+              </figcaption>
             </div>
-        <!--grid-->
+          </div>
+          <!--grid-->
+        </div>
+        <!--inner-content-->
       </div>
-      <!--inner-content-->
     </div>
-  </div></div>
+  </div>
 </section>
 
 <section id="popular-courses" class="bookshelf py-5 my-5">
@@ -112,14 +120,26 @@
                   <figcaption>
                     <h3>{{ o.nom }}</h3>
                     <span>{{ o.description }}</span>
-                    <div class="item-price">
-                      $ {{ o.prix - (o.remise!=null?o.remise:0) }}
+                    <div
+                      *ngIf="o.prix != 0; else freeCourse"
+                      class="item-price"
+                    >
+                      $ {{ o.prix - (o.remise != null ? o.remise : 0) }}
                       <span *ngIf="o.remise != null" class="prev-price">
                         $ {{ o.prix }}
                       </span>
                     </div>
+                    <ng-template #freeCourse>
+                      <div class="item-price">
+                        <b><i>Free</i></b>
+                      </div>
+                    </ng-template>
                     <span
-                      ><i><b>Duration : </b>{{ o.duration }} weeks</i></span
+                      ><i
+                        ><b>Duration : </b>{{ o.duration }} week{{
+                          o.duration >= 2 ? "s" : ""
+                        }}</i
+                      ></span
                     >
                   </figcaption>
                 </div>
@@ -176,15 +196,24 @@
               <figcaption>
                 <h3>{{ o.nom }}</h3>
                 <span>{{ o.description }}</span>
-                <div class="item-price">
-                      $ {{ o.prix - (o.remise!=null?o.remise:0) }}
-                      <span *ngIf="o.remise != null" class="prev-price">
-                        $ {{ o.prix }}
-                      </span>
-                    </div>
-                    <span
-                      ><i><b>Duration : </b>{{ o.duration }} weeks</i></span
-                    >
+                <div *ngIf="o.prix != 0; else freeCourse" class="item-price">
+                  $ {{ o.prix - (o.remise != null ? o.remise : 0) }}
+                  <span *ngIf="o.remise != null" class="prev-price">
+                    $ {{ o.prix }}
+                  </span>
+                </div>
+                <ng-template #freeCourse>
+                  <div class="item-price">
+                    <b><i>Free</i></b>
+                  </div>
+                </ng-template>
+                <span
+                  ><i
+                    ><b>Duration : </b>{{ o.duration }} week{{
+                      o.duration >= 2 ? "s" : ""
+                    }}</i
+                  ></span
+                >
               </figcaption>
             </div>
           </div>

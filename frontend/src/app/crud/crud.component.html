@@ -39,16 +39,20 @@
                   </figure>
                   <figcaption>
                     <h3>{{ o.nom }}</h3>
-                    <br />
                     <span>{{ o.description }}</span>
-                    <div class="item-price">
-                      $ {{ o.prix - (o.remise!=null?o.remise:0) }}
+                    <div *ngIf="o.prix != 0; else freeCourse" class="item-price">
+                      $ {{ o.prix - (o.remise != null ? o.remise : 0) }}
                       <span *ngIf="o.remise != null" class="prev-price">
                         $ {{ o.prix }}
                       </span>
                     </div>
+                    <ng-template #freeCourse>
+                      <div class="item-price">
+                        <b><i>Free</i></b>
+                      </div>
+                    </ng-template>
                     <span
-                      ><i><b>Duration : </b>{{ o.duration }} weeks</i></span
+                      ><i><b>Duration : </b>{{ o.duration }} week{{o.duration>=2?"s":""}}</i></span
                     >
                   </figcaption>
                 </div>

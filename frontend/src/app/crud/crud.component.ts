@@ -6,18 +6,17 @@ import * as $ from 'jquery';
 @Component({
   selector: 'app-crud',
   templateUrl: './crud.component.html',
-  styleUrls: ['./crud.component.css']
+  styleUrls: ['./crud.component.css'],
 })
 export class CrudComponent {
-
   offres: Offre[] = [];
   categories: String[] = [];
   selectedProduct: Offre = {
-    nom: "",
+    nom: '',
     prix: 0,
-    categorie: "",
+    categorie: '',
     duration: 0,
-    image: ""
+    image: '',
   };
 
   constructor(private offreService: OffreService) {
@@ -26,15 +25,15 @@ export class CrudComponent {
 
   ngOnInit(): void {
     this.offreService.getAllCategories().subscribe((categories: String[]) => {
-      categories.unshift("All Genre");
+      categories.unshift('All Genre');
       this.categories = categories;
     });
 
     this.offreService.getAllOffres().subscribe((offres: Offre[]) => {
-      this.offres = offres.map(offre => {
+      this.offres = offres.map((offre) => {
         // Ensure image is displayed as a base64 string in the img src
         if (offre.image) {
-          offre.image = 'data:image/jpeg;base64,' + offre.image;  // Adjust the MIME type based on your image format
+          offre.image = 'data:image/jpeg;base64,' + offre.image; // Adjust the MIME type based on your image format
         }
         return offre;
       });
@@ -49,10 +48,12 @@ export class CrudComponent {
   }
 
   getOffresByCategorie(cat: String) {
-    return this.offres.filter(o => cat === "All Genre" || o.categorie === cat);
+    return this.offres.filter(
+      (o) => cat === 'All Genre' || o.categorie === cat
+    );
   }
   getRemiseOffres() {
-    return this.offres.filter(o => o.remise != null);
+    return this.offres.filter((o) => o.remise != null);
   }
   setCategories(categories: String[]) {
     this.categories = categories;
@@ -72,48 +73,65 @@ export class CrudComponent {
     document.getElementById('closeButton')?.click();
   }
   deleteButton() {
-    const index = this.offres.findIndex((p) => p.id === this.selectedProduct.id);
+    const index = this.offres.findIndex(
+      (p) => p.id === this.selectedProduct.id
+    );
     this.offreService.deleteOffreById(this.selectedProduct.id).subscribe(() => {
       this.offres.splice(index, 1);
       // Delete category if it doesn't exist anymore after deletion
-      const categoryExists = this.offres.some(o => o.categorie === this.selectedProduct.categorie);
+      const categoryExists = this.offres.some(
+        (o) => o.categorie === this.selectedProduct.categorie
+      );
       if (!categoryExists) {
-        this.categories = this.categories.filter(cat => cat !== this.selectedProduct.categorie);
+        this.categories = this.categories.filter(
+          (cat) => cat !== this.selectedProduct.categorie
+        );
       }
       document.getElementById('closeButton')?.click();
     });
   }
   updateProduct() {
-  const index = this.offres.findIndex((p) => p.id === this.selectedProduct.id);
+    const index = this.offres.findIndex(
+      (p) => p.id === this.selectedProduct.id
+    );
 
-  if (this.selectedProduct.id !== null && index !== -1) {
-    // Update existing course
-    this.offres[index] = { ...this.selectedProduct };
-    this.offreService.updateOffre(this.selectedProduct.id, this.selectedProduct).subscribe({
-      complete: () => {
-        this.offreService.getAllCategories().subscribe((categories: String[]) => {
-          categories.unshift("All Genre");
-          this.categories = categories;
-        });
+    if (this.selectedProduct.id !== null && index !== -1) {
+      // Update existing course
+      this.offres[index] = { ...this.selectedProduct };
+      if (this.selectedProduct.remise==null) {
+        this.selectedProduct.remise=0
       }
-    });
-  } else {
-    // Add new product
-    this.offreService.postOffre(this.selectedProduct).subscribe((newOffre: Offre) => {
-      this.offres.push(newOffre); // Add the new course to the UI
-      this.refreshCategories();
-    });
+      this.offreService
+        .updateOffre(this.selectedProduct.id, this.selectedProduct)
+        .subscribe({
+          complete: () => {
+            this.offreService
+              .getAllCategories()
+              .subscribe((categories: String[]) => {
+                categories.unshift('All Genre');
+                this.categories = categories;
+              });
+          },
+        });
+    } else {
+      // Add new product
+      this.offreService
+        .postOffre(this.selectedProduct)
+        .subscribe((newOffre: Offre) => {
+          this.offres.push(newOffre); // Add the new course to the UI
+          this.refreshCategories();
+        });
+    }
+
+    document.getElementById('closeButton').click();
   }
 
-  document.getElementById('closeButton').click();
-}
-
-refreshCategories() {
-  this.offreService.getAllCategories().subscribe((categories: String[]) => {
-    categories.unshift('All Genre');
-    this.categories = categories;
-  });
-}
+  refreshCategories() {
+    this.offreService.getAllCategories().subscribe((categories: String[]) => {
+      categories.unshift('All Genre');
+      this.categories = categories;
+    });
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
