@@ -98,6 +98,9 @@ export class CrudComponent {
     if (this.selectedProduct.id !== null && index !== -1) {
       // Update existing course
       this.offres[index] = { ...this.selectedProduct };
+      if (this.selectedProduct.prix==null) {
+        this.selectedProduct.prix=0
+      }
       if (this.selectedProduct.remise==null) {
         this.selectedProduct.remise=0
       }
